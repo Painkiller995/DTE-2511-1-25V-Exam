@@ -3,6 +3,7 @@ import re
 from collections import Counter
 
 FILE_PATH = "z_lorem_ipsum.txt"
+REGEX_EXPRESSION = r"\b\w+\b"
 
 
 def count_words(file_path):
@@ -11,7 +12,7 @@ def count_words(file_path):
 
     with open(file_path, encoding="utf-8") as file:
         text = file.read().lower()
-        words = re.findall(r"\b\w+\b", text)
+        words = re.findall(REGEX_EXPRESSION, text)
         return Counter(words)
 
 
