@@ -43,3 +43,22 @@ print("Descending order:", sorted(numbers, reverse=True))
 # 10. Sorting complex numbers by their magnitude
 complex_numbers = [3 + 4j, 1 + 1j, 0 + 2j]
 print("Sorted by magnitude:", sorted(complex_numbers, key=abs))
+
+# 11. Sorting a dictionary by keys
+my_dict = {"b": 2, "a": 1, "c": 3}
+sorted_by_keys = dict(sorted(my_dict.items()))
+print("Dict sorted by keys:", sorted_by_keys)
+
+# 12. Sorting a dictionary by values
+sorted_by_values = dict(sorted(my_dict.items(), key=lambda item: item[1]))
+print("Dict sorted by values:", sorted_by_values)
+
+# 13. Sorting dictionary keys only (returns list)
+print("Sorted keys:", sorted(my_dict.keys()))
+
+# 14. Sorting dictionary values only (returns list)
+print("Sorted values:", sorted(my_dict.values()))
+
+# 15. Sorting dictionary items (key-value pairs)
+print("Sorted items (by key):", sorted(my_dict.items()))
+print("Sorted items (by value):", sorted(my_dict.items(), key=lambda x: x[1]))
