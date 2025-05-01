@@ -1,6 +1,3 @@
-# file_opener_class.py
-
-
 class FileOpener:
     def __init__(self, filename, mode):
         self.filename = filename

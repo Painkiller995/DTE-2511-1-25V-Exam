@@ -1,5 +1,3 @@
-# file_opener_function.py
-
 from contextlib import contextmanager
 
 

@@ -1,6 +1,3 @@
-# Filename: custom_iterator_example.py
-
-
 class CountUpTo:
     def __init__(self, max):
         self.max = max
