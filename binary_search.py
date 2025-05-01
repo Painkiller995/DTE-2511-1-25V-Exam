@@ -3,6 +3,8 @@ Binary Search Implementation
 
 This script implements the binary search algorithm to find the index of a target value in a sorted list.
 
+If the list is not already sorted, the binary search will not work correctly.
+
 How it works:
 - Binary search divides the search space in half each iteration.
 - It compares the target value to the middle element.
