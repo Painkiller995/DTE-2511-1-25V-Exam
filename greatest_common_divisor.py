@@ -1,6 +1,5 @@
 def greates_common_divisor(a, b):
-    k = 1
-
+    gcd = k = 1
     while k <= a and k <= b:
         if a % k == 0 and b % k == 0:
             gcd = k
