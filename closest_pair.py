@@ -1,83 +1,60 @@
-from math import sqrt
-from itertools import combinations
+import math
 
 
-points = [
-    (2, 1),
-    (2, 5),
-    (2, 3),
-    (12, 30),
-    (40, 50),
-    (5, 1),
-    (12, 10),
-    (3, 4),
-    (1, 2),
-    (4, 5),
-    (7, 8),
-    (9, 10),
-    (11, 12),
-    (13, 14),
-    (15, 16),
-    (17, 18),
-    (19, 20),
-]
-
-
-def find_distance(p1, p2):
-    x1, y1 = p1
-    x2, y2 = p2
-    return sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+def distance(p1, p2):
+    return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
 
 
 def brute_force(points):
     min_dist = float("inf")
-    closest = None
-    for p1, p2 in combinations(points, 2):
-        dist = find_distance(p1, p2)
-        if dist < min_dist:
-            min_dist = dist
-            closest = (p1, p2)
-    return closest[0], closest[1], min_dist
+    pair = None
+    for i in range(len(points)):
+        for j in range(i + 1, len(points)):
+            d = distance(points[i], points[j])
+            if d < min_dist:
+                min_dist = d
+                pair = (points[i], points[j])
+    return pair, min_dist
 
 
-def closest_pair(points_sorted_by_x):
-    if len(points_sorted_by_x) <= 6:
-        return brute_force(points_sorted_by_x)
+def closest_pair_recursive(px, py):
+    if len(px) <= 3:
+        return brute_force(px)
 
-    mid = len(points_sorted_by_x) // 2
-    midpoint = points_sorted_by_x[mid][0]
+    mid = len(px) // 2
+    mid_x = px[mid][0]
 
-    left = points_sorted_by_x[:mid]
-    right = points_sorted_by_x[mid:]
+    Qx = px[:mid]
+    Rx = px[mid:]
+    midpoint = px[mid][0]
+    Qy = list(filter(lambda p: p[0] <= midpoint, py))
+    Ry = list(filter(lambda p: p[0] > midpoint, py))
 
-    l_p1, l_p2, l_dist = closest_pair(left)
-    r_p1, r_p2, r_dist = closest_pair(right)
+    (p1, d1) = closest_pair_recursive(Qx, Qy)
+    (p2, d2) = closest_pair_recursive(Rx, Ry)
 
-    if l_dist < r_dist:
-        min_pair = (l_p1, l_p2)
-        min_dist = l_dist
-    else:
-        min_pair = (r_p1, r_p2)
-        min_dist = r_dist
+    d = min(d1, d2)
+    min_pair = p1 if d1 <= d2 else p2
 
-    # Build strip: points within min_dist of the dividing line
-    strip = [p for p in points_sorted_by_x if abs(p[0] - midpoint) < min_dist]
-    strip.sort(key=lambda p: p[1])  # sort by y
+    strip = [p for p in py if abs(p[0] - mid_x) < d]
 
-    # Check each point in the strip with next ~6 points
     for i in range(len(strip)):
-        for j in range(i + 1, min(i + 7, len(strip))):
-            p1, p2 = strip[i], strip[j]
-            dist = find_distance(p1, p2)
-            if dist < min_dist:
-                min_dist = dist
-                min_pair = (p1, p2)
+        for j in range(i + 1, min(i + 7, len(strip))):  # Only need to check next 6 points
+            dst = distance(strip[i], strip[j])
+            if dst < d:
+                d = dst
+                min_pair = (strip[i], strip[j])
 
-    return min_pair[0], min_pair[1], min_dist
+    return min_pair, d
 
 
-# Pre-sort by x before starting recursion
-points_sorted = sorted(points, key=lambda p: (p[0], p[1]))
-p1, p2, dist = closest_pair(points_sorted)
+def closest_pair(points):
+    px = sorted(points, key=lambda x: x[0])
+    py = sorted(points, key=lambda x: x[1])
+    return closest_pair_recursive(px, py)
 
-print("Closest points:", p1, "and", p2, "with distance:", dist)
+
+if __name__ == "__main__":
+    points = [(2, 3), (12, 30), (40, 50), (5, 1), (12, 10), (3, 4)]
+    pair, dist = closest_pair(points)
+    print(f"Closest pair: {pair} with distance {dist:.2f}")
