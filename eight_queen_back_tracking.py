@@ -24,9 +24,15 @@ def solve(row=0):
         return  # or return True if only one solution is needed
 
     for col in range(SIZE):
+        print(f"Trying to place queen at ({row}, {col})")
         if is_valid(row, col):
+            print(f"Placing queen at ({row}, {col})")
             QUEENS[row] = col
+
             solve(row + 1)
+
+            print("Dead end reached, backtracking...")
+            print(f"Removing queen from ({row}, {col})")
             QUEENS[row] = -1  # backtrack
 
 
