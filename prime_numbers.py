@@ -8,8 +8,6 @@ def find_prime_numbers():
     count = 0  # Count the number of prime numbers
     number = 2  # A number to be tested for primeness
 
-    print("The first 50 prime numbers are")
-
     # Repeatedly find prime numbers
     while count < NUMBER_OF_PRIMES:
         # Assume the number is prime
@@ -17,7 +15,7 @@ def find_prime_numbers():
 
         # Test if number is prime
         divisor = 2
-        while divisor <= number / 2:
+        while divisor <= number // 2:
             if number % divisor == 0:
                 # If true, the number is not prime
                 is_prime = False  # Set is_prime to false
@@ -27,14 +25,16 @@ def find_prime_numbers():
         # Display the prime number and increase the count
         if is_prime:
             count += 1  # Increase the count
-
-            print(format(number, "5d"), end="")
-            if count % NUMBER_OF_PRIMES_PER_LINE == 0:
-                # Display the number and advance to the new line
-                print()  # Jump to the new line
+            display_prime_numbers(number, count)
 
         # Check if the next number is prime
         number += 1
+
+
+def display_prime_numbers(number, count):
+    print(format(number, "5d"), end="")
+    if count % NUMBER_OF_PRIMES_PER_LINE == 0:
+        print()
 
 
 if __name__ == "__main__":
