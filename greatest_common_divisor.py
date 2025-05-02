@@ -28,9 +28,10 @@ def greatest_common_divisor_euclid(a, b):
     """
     Returns the greatest common divisor (GCD) of two numbers using Euclid's algorithm.
     """
-    while b != 0:
-        a, b = b, a % b
-    return a
+    if a % b == 0:
+        return b
+    else:
+        return greatest_common_divisor_euclid(b, a % b)
 
 
 def test_method(method, a, b):
