@@ -31,8 +31,7 @@ def solve(row=0):
 
             solve(row + 1)
 
-            print("Dead end reached, backtracking...")
-            print(f"Removing queen from ({row}, {col})")
+            print(f"Backtracking from ({row}, {col})")
             QUEENS[row] = -1  # backtrack
 
 
