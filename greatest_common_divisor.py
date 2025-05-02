@@ -1,3 +1,6 @@
+import time
+
+
 def greatest_common_divisor_incremental(a, b):
     """
     Returns the greatest common divisor (GCD) of two numbers using an incremental approach.
@@ -30,28 +33,39 @@ def greatest_common_divisor_euclid(a, b):
     return a
 
 
+def test_method(method, a, b):
+    """
+    Helper function to test each method and print the result along with the time taken.
+    """
+    start_time = time.time()  # Start the timer
+    gcd = method(a, b)  # Call the method
+    end_time = time.time()  # End the timer
+    elapsed_time = end_time - start_time  # Calculate time taken
+
+    return gcd, elapsed_time
+
+
 def main():
     """
-    Prompts the user to enter two integers and prints their greatest common divisor
-    using either the incremental, decremental, or Euclid's algorithm.
+    Prompts the user to enter two integers, tests all GCD methods,
+    and prints their results along with the time taken for each method.
     """
     try:
         a = int(input("Enter first number: "))
         b = int(input("Enter second number: "))
 
-        method = input("Choose method (1 for Incremental, 2 for Decremental, 3 for Euclid's Algorithm): ")
+        methods = [
+            (greatest_common_divisor_incremental, "Incremental"),
+            (greatest_common_divisor_decremental, "Decremental"),
+            (greatest_common_divisor_euclid, "Euclid's Algorithm"),
+        ]
 
-        if method == "1":
-            gcd = greatest_common_divisor_incremental(a, b)
-            print(f"The greatest common divisor of {a} and {b} (using Incremental) is {gcd}")
-        elif method == "2":
-            gcd = greatest_common_divisor_decremental(a, b)
-            print(f"The greatest common divisor of {a} and {b} (using Decremental) is {gcd}")
-        elif method == "3":
-            gcd = greatest_common_divisor_euclid(a, b)
-            print(f"The greatest common divisor of {a} and {b} (using Euclid's Algorithm) is {gcd}")
-        else:
-            print("Invalid choice. Please enter 1, 2, or 3.")
+        for method, method_name in methods:
+            gcd, elapsed_time = test_method(method, a, b)
+            print(f"\nMethod: {method_name}")
+            print(f"The greatest common divisor of {a} and {b} is {gcd}")
+            print(f"Time taken: {elapsed_time:.6f} seconds")
+
     except ValueError:
         print("Please enter valid integers.")
 
