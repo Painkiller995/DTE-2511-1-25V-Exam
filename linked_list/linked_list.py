@@ -70,7 +70,7 @@ class LinkedList:
     def __iter__(self):
         current_node = self._head
         while current_node:
-            yield current_node
+            yield current_node.value
             current_node = current_node.next
 
 
@@ -82,8 +82,8 @@ def main():
 
     print(linked_list.size())
 
-    for node in linked_list:
-        print(node.value)
+    for value in linked_list:
+        print(value)
 
 
 if __name__ == "__main__":
