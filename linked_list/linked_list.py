@@ -6,9 +6,6 @@ class LinkedList:
         self._head = None
         self._tail = None
 
-    def is_empty(self):
-        return not self._head
-
     def add_first(self, value):
         new_node = Node(value)
         if self.is_empty():
@@ -25,6 +22,15 @@ class LinkedList:
             return
         self._tail.next = new_node
         self._tail = new_node
+
+    def get_first(self):
+        return self._head
+
+    def get_last(self):
+        return self._tail
+
+    def is_empty(self):
+        return not self.get_first()
 
     def clear(self):
         self._head = self._tail = None
@@ -43,6 +49,8 @@ def main():
     linked_list.add_first(7)
     for node in linked_list:
         print(node.value)
+
+    linked_list.get_first()
 
 
 if __name__ == "__main__":
