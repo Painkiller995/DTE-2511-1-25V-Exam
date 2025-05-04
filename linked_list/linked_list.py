@@ -11,15 +11,11 @@ class LinkedList:
 
     def add_first(self, value):
         new_node = Node(value)
-
         if self.is_empty():
             self._head = self._tail = new_node
             return
-        # Set current head to the new node
         new_node.next = self._head
-        # Set the prev to the new node
         self._head.prev = new_node
-        # Update the head to the new node
         self._head = new_node
 
     def add_last(self, value):
@@ -27,9 +23,11 @@ class LinkedList:
         if self.is_empty():
             self._head = self._tail = new_node
             return
-
         self._tail.next = new_node
         self._tail = new_node
+
+    def clear(self):
+        self._head = self._tail = None
 
     def __iter__(self):
         current_node = self._head
