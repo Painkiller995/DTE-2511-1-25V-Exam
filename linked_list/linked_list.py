@@ -9,22 +9,26 @@ class LinkedList:
 
     def add_first(self, value):
         new_node = Node(value)
-        self._count += 1
+
         if self.is_empty():
             self._head = self._tail = new_node
+            self._count += 1
             return
+
         new_node.next = self._head
         self._head.prev = new_node
         self._head = new_node
+        self._count += 1
 
     def add_last(self, value):
         new_node = Node(value)
-        self._count += 1
         if self.is_empty():
             self._head = self._tail = new_node
+            self._count += 1
             return
         new_node.prev = self._tail
         self._tail = new_node
+        self._count += 1
 
     def remove_first(self):
         if self.is_empty():
@@ -50,11 +54,11 @@ class LinkedList:
     def get_last(self):
         return self._tail.value if self._tail else None
 
-    def is_empty(self):
-        return not self.get_first()
-
     def size(self):
         return self._count
+
+    def is_empty(self):
+        return self.size() == 0
 
     def clear(self):
         self._head = self._tail = None
