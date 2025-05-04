@@ -1,9 +1,8 @@
 class Node:
-    def __init__(self, value, next=None, prev=None, parent=None):
+    def __init__(self, value, next=None, prev=None):
         self._value = value
         self._next = next
         self._prev = prev
-        self._parent = parent
 
     # Getter and setter for 'value'
     @property
@@ -32,11 +31,5 @@ class Node:
     def prev(self, prev_node):
         self._prev = prev_node
 
-    # Getter and setter for 'parent'
-    @property
-    def parent(self):
-        return self._parent
-
-    @parent.setter
-    def parent(self, parent_node):
-        self._parent = parent_node
+    def __str__(self):
+        return self.value
