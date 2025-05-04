@@ -20,14 +20,30 @@ class LinkedList:
         if self.is_empty():
             self._head = self._tail = new_node
             return
-        self._tail.next = new_node
+        new_node.prev = self._tail
         self._tail = new_node
 
+    def remove_first(self):
+        if self.is_empty():
+            return None
+        current_head_value = self._head.value
+        self._head: Node = self._head.next
+        self._head.prev = None
+        return current_head_value
+
+    def remove_last(self):
+        if self.is_empty():
+            return None
+        current_tail_value = self._tail.value
+        self._tail: Node = self._tail.prev
+        self._tail.next = None
+        return current_tail_value
+
     def get_first(self):
-        return self._head
+        return self._head.value if self._head else None
 
     def get_last(self):
-        return self._tail
+        return self._tail.value if self._tail else None
 
     def is_empty(self):
         return not self.get_first()
@@ -47,10 +63,10 @@ def main():
     linked_list.add_last(8)
     linked_list.add_last(9)
     linked_list.add_first(7)
+    linked_list.remove_first()
+    linked_list.remove_last()
     for node in linked_list:
         print(node.value)
-
-    linked_list.get_first()
 
 
 if __name__ == "__main__":
