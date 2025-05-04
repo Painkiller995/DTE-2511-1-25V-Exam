@@ -30,6 +30,9 @@ class LinkedList:
         self._tail = new_node
         self._count += 1
 
+    def add(self, value):
+        return self.add_last(value)
+
     def remove_first(self):
         if self.is_empty():
             return None
